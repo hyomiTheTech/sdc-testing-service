@@ -35,37 +35,37 @@ class Reviews extends Component {
   getReviews = async () => {
     try {
       let adj = ["Terrible", "Poor", "Good", "Wonderful", "Excellent"];
-      let rand = Math.floor(Math.random() * 100);
+      let rand = Math.floor(Math.random() * 10000000);
       // console.log("This is id: " + rand);
       const results = await axios.get(`/reviews/${rand}`);
-      const zipResults = await axios.get(`/zips/${rand}`);
+      // const zipResults = await axios.get(`/zips/${rand}`);
       // console.log(zipResults);
       // console.log("this is David Kim", results);
-      const sortedResults = await results.data.rows.sort((a, b) => {
+      const sortedResults = await results.data.sort((a, b) => {
         return new Date(b.dateS) - new Date(a.dateS);
       });
       const total =
-        (await results.data.rows.reduce((a, b) => a + b.rating, 0)) /
-        results.data.rows.length;
+        (await results.data.reduce((a, b) => a + b.rating, 0)) /
+        results.data.length;
       //console.log(total);
-      let allowedClicks = await Math.floor(results.data.rows.length / 6);
+      let allowedClicks = await Math.floor(results.data.length / 6);
       //console.log('allowed:' + allowedClicks)
-      if (results.data.rows.length === 6 || allowedClicks === 0) {
+      if (results.data.length === 6 || allowedClicks === 0) {
         this.setState({
           addDis: true
         });
       }
-      if (results.data.rows.length % 6 === 0) {
+      if (results.data.length % 6 === 0) {
         allowedClicks = allowedClicks - 1;
         //console.log('new allowed clicks: ' + allowedClicks)
       }
-      console.log(zipResults.data.rows[0].zipCode);
+      console.log(results.data);
       this.setState({
         reviews: sortedResults,
         listTotal: total,
         adj: adj[Math.round(total - 1)],
         allowed: allowedClicks,
-        zip: zipResults.data.rows[0].zipcode
+        zip: results.data[0].zipcode
       });
 
       // console.log(results.data);
