@@ -1,7 +1,7 @@
 require("dotenv").config();
-const { Client } = require("pg");
+const { Pool } = require("pg");
 
-module.exports = pgClient = new Client();
+module.exports = pgClient = new Pool();
 
 pgClient
   .connect()
