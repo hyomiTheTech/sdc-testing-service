@@ -6,7 +6,7 @@
   "scripts": {
     "react-dev": "webpack -d --watch",
     "start": "nodemon server/index.js",
-    "seed": "node --max_old_space_size=7168 db/postgresDB/seed.js"
+    "seed": "node --max_old_space_size=7168 db/seed.js"
   },
   "author": "",
   "license": "ISC",

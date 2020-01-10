@@ -19,22 +19,24 @@ writeReviews.write(output, "utf8");
 genReview = (writer, encoding, callback) => {
   var randZips = [];
 
-  for (let z = 0; z < 200; z++) {
+  for (let z = 0; z < 500; z++) {
     randZips.push(zipcodes.random().zip);
   }
 
   let randLoc, date;
   let locationProb = [1, 2, 3];
-  let j = 10001;
+  let j = 10000001;
+  let k = 0;
+  let turn = true;
   var write = () => {
     let ok = true;
-
     do {
       j--;
       let randRev = Math.floor(Math.random() * 3) + 1;
       if (j % 10000 === 0) {
         console.log(j + " Reviews Written");
       }
+      var zipCode = randZips[Math.floor(Math.random() * 501)];
       for (let i = 0; i < randRev; i++) {
         let randNums = Math.random();
         randOwn = Math.floor(randNums * 11);
@@ -55,7 +57,7 @@ genReview = (writer, encoding, callback) => {
         var ownerR = faker.lorem.paragraph();
         var aLocation = `"${faker.address.city()}, ${faker.address.stateAbbr()}"`;
         var ListingId = j;
-        const zipCode = randZips[Math.floor(Math.random() * 201)];
+
         var data = `${rating},${dateS},${title},${review},${dateP},"${author}",${aLocation},${ownerR},${ListingId},${zipCode}\n`;
 
         if (j === 1) {
@@ -79,7 +81,7 @@ genReview(writeReviews, "utf-8", () => {
     } else {
       pgClient
         .query(
-          `COPY reviews FROM '/Users/EuiHyo_Mi/Desktop/sdc-service-david/db/postgresDB/reviews.csv' DELIMITER ',' CSV`
+          `COPY reviews FROM '/Users/EuiHyo_Mi/Desktop/sdc-testing-service/db/reviews.csv' DELIMITER ',' CSV`
         )
         .then(() => {
           pgClient.query(`ALTER TABLE reviews ADD id serial;`);
