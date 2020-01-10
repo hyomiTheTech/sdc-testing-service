@@ -1,0 +1,7 @@
+const foo = {
+  dbName: '',
+  pass: '',
+  map: ''
+};
+
+// module.exports = foo;

@@ -1,0 +1,24 @@
+config:
+  target: "http://localhost:3004"
+  http:
+    pool: 20
+  phases:
+    - duration: 10
+      arrivalRate: 800
+  defaults:
+    headers:
+      x-my-service-auth: "987401838271002188298567"
+scenarios:
+  - flow:
+      - post:
+          url: "/reviews"
+          json:
+            rating: "3"
+            dateS: "2012-09-30"
+            title: "blahblahblah"
+            review: "fsdfsdfjklejf sldjfklsej fkl klsejfksjeklf skef selj"
+            dateP: "2012-10-30"
+            author: "Ms. Parker Davis"
+            aLocation: "Los Angeles, TX"
+            ownerR: "fsdfsdf fsefwefw sjdflkjsdfkls alsjdfks"
+            ListingId: 1000001
