@@ -9,12 +9,4 @@ router
 
 router.route("/reviews").post(controller.writeReview);
 
-// router
-//   .route("/zips/:id")
-//   .get(controller.getZips)
-//   .put(controller.updateZipcode)
-//   .delete(controller.deleteZipcode);
-
-// router.route("/zips").post(controller.writeZip);
-
 module.exports = router;
